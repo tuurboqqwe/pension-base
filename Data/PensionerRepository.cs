@@ -50,6 +50,7 @@ namespace PensionBase.Data
             return result;
         }
 
+        // Названия столбцов идут в привязку DataGrid, поэтому точек в них быть не должно.
         // Сложный запрос 1: сводка по видам пенсий с долей каждого вида от общего числа записей
         public static DataTable GetStatisticsByType()
         {
@@ -58,10 +59,10 @@ namespace PensionBase.Data
                     t.Name AS [Вид пенсии],
                     COUNT(p.Id) AS [Записей],
                     CAST(100.0 * COUNT(p.Id) / NULLIF(SUM(COUNT(p.Id)) OVER (), 0) AS DECIMAL(5,1)) AS [Доля, %],
-                    CAST(AVG(p.PensionAmount) AS DECIMAL(10,2)) AS [Средняя, руб.],
-                    MIN(p.PensionAmount) AS [Минимум, руб.],
-                    MAX(p.PensionAmount) AS [Максимум, руб.],
-                    ISNULL(SUM(p.PensionAmount), 0) AS [Сумма в месяц, руб.]
+                    CAST(AVG(p.PensionAmount) AS DECIMAL(10,2)) AS [Средняя, руб],
+                    MIN(p.PensionAmount) AS [Минимум, руб],
+                    MAX(p.PensionAmount) AS [Максимум, руб],
+                    ISNULL(SUM(p.PensionAmount), 0) AS [Сумма в месяц, руб]
                 FROM dbo.PensionTypes t
                 LEFT JOIN dbo.Pensioners p ON p.PensionTypeId = t.Id
                 GROUP BY t.Id, t.Name
@@ -88,13 +89,13 @@ namespace PensionBase.Data
                 SELECT
                     FullName AS [ФИО],
                     PensionType AS [Вид пенсии],
-                    PensionAmount AS [Размер, руб.],
-                    CAST(TypeAverage AS DECIMAL(10,2)) AS [Среднее по виду, руб.],
-                    CAST(TypeAverage - PensionAmount AS DECIMAL(10,2)) AS [Ниже среднего на, руб.],
+                    PensionAmount AS [Размер, руб],
+                    CAST(TypeAverage AS DECIMAL(10,2)) AS [Среднее по виду, руб],
+                    CAST(TypeAverage - PensionAmount AS DECIMAL(10,2)) AS [Ниже среднего на, руб],
                     TypeRank AS [Место в виде]
                 FROM Ranked
                 WHERE PensionAmount < TypeAverage
-                ORDER BY [Ниже среднего на, руб.] DESC";
+                ORDER BY [Ниже среднего на, руб] DESC";
 
             return Fill(sql);
         }
