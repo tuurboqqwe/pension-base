@@ -1,0 +1,64 @@
+<Window x:Class="PensionBase.Views.PensionerEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Карточка пенсионера" Width="600" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Style="{StaticResource BaseWindow}"
+        FocusManager.FocusedElement="{Binding ElementName=LastNameBox}">
+    <StackPanel Margin="24,18">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Фамилия *" Style="{StaticResource FieldLabel}" />
+                <TextBox x:Name="LastNameBox" MaxLength="50" />
+
+                <TextBlock Text="Имя *" Style="{StaticResource FieldLabel}" />
+                <TextBox x:Name="FirstNameBox" MaxLength="50" />
+
+                <TextBlock Text="Отчество" Style="{StaticResource FieldLabel}" />
+                <TextBox x:Name="MiddleNameBox" MaxLength="50" />
+
+                <TextBlock Text="Дата рождения *" Style="{StaticResource FieldLabel}" />
+                <DatePicker x:Name="BirthDatePicker" />
+
+                <TextBlock Text="Пол *" Style="{StaticResource FieldLabel}" />
+                <ComboBox x:Name="GenderBox">
+                    <ComboBoxItem Content="М" />
+                    <ComboBoxItem Content="Ж" />
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="СНИЛС * (000-000-000 00)" Style="{StaticResource FieldLabel}" />
+                <TextBox x:Name="SnilsBox" MaxLength="14" />
+
+                <TextBlock Text="Вид пенсии *" Style="{StaticResource FieldLabel}" />
+                <ComboBox x:Name="TypeBox" DisplayMemberPath="Name" />
+
+                <TextBlock Text="Размер пенсии, руб. *" Style="{StaticResource FieldLabel}" />
+                <TextBox x:Name="AmountBox" />
+
+                <TextBlock Text="Дата назначения *" Style="{StaticResource FieldLabel}" />
+                <DatePicker x:Name="AssignedDatePicker" />
+
+                <TextBlock Text="Телефон" Style="{StaticResource FieldLabel}" />
+                <TextBox x:Name="PhoneBox" MaxLength="20" />
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Text="Адрес" Style="{StaticResource FieldLabel}" />
+        <TextBox x:Name="AddressBox" MaxLength="200" />
+
+        <TextBlock x:Name="ErrorLabel" Style="{StaticResource ErrorText}" Visibility="Collapsed" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button x:Name="SaveButton" Content="Сохранить" Style="{StaticResource PrimaryButton}" IsDefault="True" Click="Save_Click" />
+            <Button x:Name="CancelButton" Content="Отмена" IsCancel="True" Margin="8,0,0,0" />
+        </StackPanel>
+    </StackPanel>
+</Window>
