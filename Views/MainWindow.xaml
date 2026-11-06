@@ -1,0 +1,60 @@
+<Window x:Class="PensionBase.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Учёт пенсионеров" Width="1120" Height="620" MinWidth="860" MinHeight="420"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource BaseWindow}">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,12">
+            <Button x:Name="LogoutButton" DockPanel.Dock="Right" Content="Выйти" Click="Logout_Click" />
+            <TextBlock x:Name="UserLabel" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#5B6773" />
+            <TextBlock Text="База пенсионеров" FontSize="22" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" />
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Margin="0,0,0,10">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button x:Name="AddButton" Content="Добавить" Style="{StaticResource PrimaryButton}" Click="Add_Click" />
+                <Button x:Name="EditButton" Content="Изменить" Margin="8,0,0,0" Click="Edit_Click" />
+                <Button x:Name="DeleteButton" Content="Удалить" Margin="8,0,0,0" Click="Delete_Click" />
+                <Button x:Name="StatisticsButton" Content="Статистика" Margin="8,0,0,0" Click="Statistics_Click" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Поиск:" VerticalAlignment="Center" Margin="0,0,6,0" />
+                <TextBox x:Name="SearchBox" Width="240" TextChanged="Filter_Changed"
+                         ToolTip="ФИО или СНИЛС" />
+                <TextBlock Text="Вид пенсии:" VerticalAlignment="Center" Margin="14,0,6,0" />
+                <ComboBox x:Name="TypeFilter" Width="240" DisplayMemberPath="Name" SelectionChanged="Filter_Changed" />
+            </StackPanel>
+        </DockPanel>
+
+        <DataGrid x:Name="PensionersGrid" Grid.Row="2"
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="#E3E7EC" Background="White" BorderBrush="{StaticResource BorderBrush}"
+                  RowHeight="28" MouseDoubleClick="Grid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="2*" MinWidth="200" />
+                <DataGridTextColumn Header="Дата рожд." Binding="{Binding BirthDate, StringFormat=dd.MM.yyyy}" Width="100" />
+                <DataGridTextColumn Header="Возраст" Binding="{Binding Age}" Width="70" />
+                <DataGridTextColumn Header="Пол" Binding="{Binding Gender}" Width="45" />
+                <DataGridTextColumn Header="СНИЛС" Binding="{Binding Snils}" Width="120" />
+                <DataGridTextColumn Header="Вид пенсии" Binding="{Binding PensionTypeName}" Width="2*" MinWidth="180" />
+                <DataGridTextColumn Header="Размер, руб." Binding="{Binding PensionAmount, StringFormat=N2}" Width="105" />
+                <DataGridTextColumn Header="Назначена" Binding="{Binding AssignedDate, StringFormat=dd.MM.yyyy}" Width="95" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DockPanel Grid.Row="3" Margin="0,10,0,0">
+            <TextBlock Text="Учебная программа, все данные вымышленные" DockPanel.Dock="Right" Foreground="#5B6773" />
+            <TextBlock x:Name="SummaryLabel" />
+        </DockPanel>
+    </Grid>
+</Window>

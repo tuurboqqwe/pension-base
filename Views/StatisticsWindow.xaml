@@ -1,0 +1,25 @@
+<Window x:Class="PensionBase.Views.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Статистика" Width="1000" Height="600"
+        WindowStartupLocation="CenterOwner"
+        Style="{StaticResource BaseWindow}">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Сводка по видам пенсий" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6" />
+        <DataGrid x:Name="ByTypeGrid" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False"
+                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E3E7EC"
+                  Background="White" BorderBrush="{StaticResource BorderBrush}" />
+
+        <TextBlock Grid.Row="2" Text="Пенсия ниже среднего по своему виду" FontSize="16" FontWeight="SemiBold" Margin="0,14,0,6" />
+        <DataGrid x:Name="BelowAverageGrid" Grid.Row="3" IsReadOnly="True" AutoGenerateColumns="True" CanUserAddRows="False"
+                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E3E7EC"
+                  Background="White" BorderBrush="{StaticResource BorderBrush}" />
+    </Grid>
+</Window>
